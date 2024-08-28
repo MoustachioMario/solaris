@@ -466,7 +466,8 @@ export default class GameGalaxyService {
                         return s;
                     }
 
-                    if (s.isNebula) {
+                    let canSeeInfra = viewpoint.kind === ViewpointKind.Perspectives && this.starService.canPlayerSeeInfrastructure(s, viewpoint.perspectives.map(p => p._id))
+                    if (!canSeeInfra) {
                         delete s.infrastructure;
                         // NOTE: From this point, this star will be considered "dead", as star.isDeadStar(s)
                         // looks for the existence and thruthness of the naturalResources field.

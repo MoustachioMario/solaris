@@ -36,6 +36,7 @@ export interface Specialist {
         },
         special?: {
             hideShips?: boolean;
+            hideInfra?: boolean;
             deductEnemyWeapons?: number;
             unlockWarpGates?: boolean;
             starCaptureRewardMultiplier?: number;

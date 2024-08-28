@@ -467,6 +467,32 @@ export default class StarService extends EventEmitter {
             && destinationStar.wormHoleToStarId.toString() === sourceStar._id.toString();
     }
 
+    canPlayerSeeInfrastructure(star: Star, playerIds: DBObjectId[]) {
+        const ids = playerIds.map(p => p.toString());
+        const isOwnedByPlayer = ids.includes((star.ownedByPlayerId || '').toString());
+
+        if (isOwnedByPlayer) {
+            return true;
+        }
+
+        // Nebula always hides infrastructure for other players
+        if (star.isNebula) {
+            return false;
+        }
+
+        if (star.specialistId) {
+            let specialist = this.specialistService.getByIdStar(star.specialistId);
+
+            // If the star has a hideShips spec and is not owned by the given player
+            // then that player cannot see the star's infrastructure.
+            if (specialist && specialist.modifiers.special?.hideInfra) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     canPlayersSeeStarShips(star: Star, playerIds: DBObjectId[]) {
         const ids = playerIds.map(p => p.toString());
         const isOwnedByPlayer = ids.includes((star.ownedByPlayerId || '').toString());

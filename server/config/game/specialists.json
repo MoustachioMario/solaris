@@ -611,7 +611,7 @@
             "id": 8,
             "key": "power-generator",
             "name": "Scrambler",
-            "description": "Prevents other players from seeing how many ships are garrisoned at the star.",
+            "description": "Conceals the infrastructure and ship counts at the star from all other players",
             "active": {
                 "official": true,
                 "custom": true
@@ -622,7 +622,8 @@
             "expireTicks": null,
             "modifiers": {
                 "special": {
-                    "hideShips": true
+                    "hideShips": true,
+                    "hideInfra": true
                 }
             }
         },
